@@ -4,7 +4,7 @@ Para iniciar é necessário fazer login
 
 post
 
-recurso ->   /login
+/login
 
 body:
 
