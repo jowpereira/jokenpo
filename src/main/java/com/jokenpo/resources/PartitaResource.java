@@ -33,7 +33,7 @@ public class PartitaResource {
 
 	@GetMapping(value = "/player/{id}")
 	public Jogador findOne(@PathVariable("id") Integer id) {
-		return jogadorServiceImpl.find(id);		
+		return jogadorServiceImpl.find(id);
 	}
 
 	@PostMapping(value = "/newPlayer")
@@ -42,18 +42,24 @@ public class PartitaResource {
 		return ResponseEntity.ok("Jogador inserido com Sucesso!");
 	}
 
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = "/player/{id}")
 	public ResponseEntity<?> removeJogador(@PathVariable("id") int id) {
 		jogadorServiceImpl.delete(id);
 		return ResponseEntity.ok("Jogador deletado com sucesso!");
 	}
 
-	@PutMapping(path = "/{id}")
+	@PutMapping(path = "/player/{id}")
 	public ResponseEntity<?> alterarJogador(@PathVariable("id") int id, @RequestBody Jogador obj) {
 		Jogador jogadorAlterado = jogadorServiceImpl.find(id);
-		jogadorAlterado.setJogada(obj.getJogada());
-		jogadorAlterado.setNome(obj.getNome());
-		return ResponseEntity.ok("Aletaração realizada com sucesso!");
+
+		if (obj.getNome() != "" || !obj.getNome().isEmpty()) {
+
+			jogadorAlterado.setNome(obj.getNome());
+		}
+		if (obj.getJogada().getDescricao() != "" || !obj.getJogada().getDescricao().isEmpty()) {
+			jogadorAlterado.setJogada(obj.getJogada());
+		}
+		return ResponseEntity.ok("AletaraÃ§Ã£o realizada com sucesso!");
 	}
 
 	@GetMapping(value = "/winner")
